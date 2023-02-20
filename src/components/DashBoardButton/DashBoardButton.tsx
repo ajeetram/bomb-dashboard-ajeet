@@ -1,5 +1,6 @@
 import React from 'react';
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
+import Stake from '../../views/Boardroom/components/Stake';
 import TokenSymbol from '../TokenSymbol';
 
 interface DashboardButtonInfo {
@@ -8,6 +9,7 @@ interface DashboardButtonInfo {
 }
 
 const DashBoardButton: React.FC<DashboardButtonInfo> = ({ imageUrl, text }) => {
+
   return (
     <>
       <button className="flex p-1 text-4 border-white border rounded-3xl">

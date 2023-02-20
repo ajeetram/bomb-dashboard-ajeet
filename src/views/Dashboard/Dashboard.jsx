@@ -1,11 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import Page from '../../components/Page';
 import { createGlobalStyle } from 'styled-components';
-import CountUp from 'react-countup';
-import CardIcon from '../../components/CardIcon';
-import TokenSymbol from '../../components/TokenSymbol';
-
-import BombForm from './Components/BombForm';
+import BombForm from './Elements/BombForm';
 import moment from 'moment';
 import BombInfo from '../../components/BombInfo';
 import DashBoardButton from '../../components/DashBoardButton';
@@ -17,43 +13,32 @@ import useZap from '../../hooks/useZap';
 import useBondStats from '../../hooks/useBondStats';
 import usebShareStats from '../../hooks/usebShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-// import { Bomb as bombTesting } from '../../bomb-finance/deployments/deployments.testing.json';
-//import { Bomb as bombProd } from '../../bomb-finance/deployments/deployments.mainnet.json';
 import { roundAndFormatNumber } from '../../0x';
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
 import { Box, Button, Card, CardContent, Grid, Paper } from '@material-ui/core';
 import ZapModal from '../Bank/components/ZapModal';
-import { Alert } from '@material-ui/lab';
-import { IoCloseOutline } from 'react-icons/io5';
-import { BiLoaderAlt } from 'react-icons/bi';
 import { makeStyles } from '@material-ui/core/styles';
 import useBombFinance from '../../hooks/useBombFinance';
-//import { ReactComponent as IconTelegram } from '../../assets/img/telegram.svg';
 import { Helmet } from 'react-helmet';
-import BombImage from '../../assets/img/bomb.png';
 import BshareImage from '../../assets/img/bshares.png';
 import BbondImage from '../../assets/img/bbond.png';
 import DocumentImage from '../../assets/img/documentImage.png';
 import DiscordLogo from '../../assets/img/discordLogo.png';
-import UpArrowImage from '../../assets/img/arrowUpCircle.png';
-import DownArrowImage from '../../assets/img/arrowDownCircle.png';
-//import useBombMaxiStats from '../../hooks/useBombMaxiStats';
 import HomeImage from '../../assets/img/background.jpg';
-import Bond from './Components/Bond';
-import useHarvestFromBoardroom from '../../../src/hooks/useHarvestFromBoardroom';
+import Bond from './Elements/Bond';
 import useEarningsOnBoardroom from '../../../src/hooks/useEarningsOnBoardroom';
 import { getDisplayBalance } from '../../../src/utils/formatBalance';
-import useClaimRewardCheck from '../../../src/hooks/boardroom/useClaimRewardCheck';
-import useRedeemOnBoardroom from '../../hooks/useRedeemOnBoardroom';
 import useStakedBalanceOnBoardroom from '../../hooks/useStakedBalanceOnBoardroom';
 import useCurrentEpoch from '../../hooks/useCurrentEpoch';
 import useFetchBoardroomAPR from '../../hooks/useFetchBoardroomAPR';
-
+import BombImage from '../../assets/img/bomb.png';
 import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 import useTreasuryAllocationTimes from '../../hooks/useTreasuryAllocationTimes';
 import useTotalStakedOnBoardroom from '../../hooks/useTotalStakedOnBoardroom';
-import useWithdrawCheck from '../../hooks/boardroom/useWithdrawCheck';
 import ProgressCountdown from '../../views/Boardroom/components/ProgressCountdown';
+import BShareDeposit from './Functions/BShareDeposite'
+import BShareWithdraw from './Functions/BShareWithdraw'
+import BShareClaimReward from './Functions/BShareClaimReward'
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -72,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Dashboard = () => {
+  const [showDeposite, setShowDeposite] = useState(false);
   const classes = useStyles();
   const TVL = useTotalValueLocked();
   const bombFtmLpStats = useLpStatsBTC('BOMB-BTCB-LP');
@@ -82,17 +68,14 @@ const Dashboard = () => {
   const bombFinance = useBombFinance();
 
   //------BoardRoom Section-----//
-  const { onReward } = useHarvestFromBoardroom();
   const earnings = useEarningsOnBoardroom();
-  const canClaimReward = useClaimRewardCheck();
 
   const stakedBalance = useStakedBalanceOnBoardroom();
   const currentEpoch = useCurrentEpoch();
   const cashStat = useCashPriceInEstimatedTWAP();
   const totalStaked = useTotalStakedOnBoardroom();
   const boardroomAPR = useFetchBoardroomAPR();
-  const { onRedeem } = useRedeemOnBoardroom();
-  const canWithdraw = useWithdrawCheck();
+ 
 
   const tokenPriceInDollars = useMemo(
     () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
@@ -182,6 +165,15 @@ const Dashboard = () => {
   const spinner = () => {
     setVideoLoading(!videoLoading);
   };
+
+  const deposite = ()=>
+  {
+    if(!showDeposite)
+    {
+      setShowDeposite(true);
+    }  
+
+  }
 
   return (
     <Page>
@@ -354,15 +346,16 @@ const Dashboard = () => {
                 {`≈ $${earnedInDollars}`}
               </div>
 
+            {/* //-----Deposit-----Withdraw----Claim Rewards Functions-----// */}
               <div className="grid grid-cols-2 gap-y-2">
-                <div className="col-span-1 place-self-center">
-                  <DashBoardButton text="Deposit" imageUrl={UpArrowImage} />
+                <div className="col-span-1 place-self-center">  
+                 <BShareDeposit />
                 </div>
                 <div className="col-span-1 place-self-center">
-                  <DashBoardButton text="Withdraw" imageUrl={DownArrowImage} onClick={onRedeem} />
+                  <BShareWithdraw />
                 </div>
                 <div className="col-span-2 place-self-center">
-                  <DashBoardButton text="Claim Rewards" imageUrl={BombImage} onClick={onReward} />
+                <BShareClaimReward />
                 </div>
               </div>
             </div>
@@ -375,14 +368,11 @@ const Dashboard = () => {
         </div>
       </div>
       
-
-      ///--------BOMB-FORM------Section----//
-
+      {/* ///--------BOMB-FORM------Section----// */}
       <BombForm />
-
-
-      ///--------BOND------Section----//
+      {/* ///--------BOND------Section----// */}
       <Bond />
+     
     </Page>
   );
 };
