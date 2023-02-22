@@ -2,26 +2,27 @@ import React, {useCallback, useMemo, useState} from 'react';
 
 import {Button} from '@material-ui/core';
 // import Button from '../../../components/Button'
-import Modal, {ModalProps} from '../../../components/Modal';
-import ModalActions from '../../../components/ModalActions';
-import ModalTitle from '../../../components/ModalTitle';
-import TokenInput from '../../../components/TokenInput';
+import Modal, {ModalProps} from '../../../../../components/Modal';
+import ModalActions from '../../../../../components/ModalActions';
+import ModalTitle from '../../../../../components/ModalTitle';
+import TokenInput from '../../../../../components/TokenInput';
 
-import {getFullDisplayBalance} from '../../../utils/formatBalance';
+import {getFullDisplayBalance} from '../../../../../utils/formatBalance';
 import {BigNumber} from 'ethers';
 
 interface DepositModalProps extends ModalProps {
   max: BigNumber;
+  decimals: number;
   onConfirm: (amount: string) => void;
   tokenName?: string;
 }
 
-const DepositModal: React.FC<DepositModalProps> = ({max, onConfirm, onDismiss, tokenName = ''}) => {
+const DepositModal: React.FC<DepositModalProps> = ({max, decimals, onConfirm, onDismiss, tokenName = ''}) => {
   const [val, setVal] = useState('');
 
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(max, tokenName === 'USDC' ? 6 : 18);
-  }, [max, tokenName]);
+    return getFullDisplayBalance(max, decimals, false);
+  }, [max, decimals]);
 
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -45,7 +46,8 @@ const DepositModal: React.FC<DepositModalProps> = ({max, onConfirm, onDismiss, t
         symbol={tokenName}
       />
       <ModalActions>
-        <Button color="primary" variant="contained" onClick={() => onConfirm(val)}>
+        {/* <Button color="secondary" variant="outlined" onClick={onDismiss}>Cancel</Button> */}
+        <Button className="shinyButtonSecondary" onClick={() => onConfirm(val)}>
           Confirm
         </Button>
       </ModalActions>

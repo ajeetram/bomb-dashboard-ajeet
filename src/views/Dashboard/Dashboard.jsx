@@ -1,10 +1,9 @@
 import React, { useMemo, useState } from 'react';
 import Page from '../../components/Page';
 import { createGlobalStyle } from 'styled-components';
-import BombForm from './Elements/BombForm';
+import BombForm from './DashboardElements/BombForm';
 import moment from 'moment';
 import BombInfo from '../../components/BombInfo';
-import DashBoardButton from '../../components/DashBoardButton';
 import useBombStats from '../../hooks/useBombStats';
 import useLpStats from '../../hooks/useLpStats';
 import useLpStatsBTC from '../../hooks/useLpStatsBTC';
@@ -25,7 +24,7 @@ import BbondImage from '../../assets/img/bbond.png';
 import DocumentImage from '../../assets/img/documentImage.png';
 import DiscordLogo from '../../assets/img/discordLogo.png';
 import HomeImage from '../../assets/img/background.jpg';
-import Bond from './Elements/Bond';
+import BBond from './DashboardElements/Bond';
 import useEarningsOnBoardroom from '../../../src/hooks/useEarningsOnBoardroom';
 import { getDisplayBalance } from '../../../src/utils/formatBalance';
 import useStakedBalanceOnBoardroom from '../../hooks/useStakedBalanceOnBoardroom';
@@ -36,9 +35,10 @@ import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP
 import useTreasuryAllocationTimes from '../../hooks/useTreasuryAllocationTimes';
 import useTotalStakedOnBoardroom from '../../hooks/useTotalStakedOnBoardroom';
 import ProgressCountdown from '../../views/Boardroom/components/ProgressCountdown';
-import BShareDeposit from './Functions/BShareDeposite'
-import BShareWithdraw from './Functions/BShareWithdraw'
-import BShareClaimReward from './Functions/BShareClaimReward'
+import BShareDeposit from './BoardRoom/BShareDepositeModal'
+import BShareWithdraw from './BoardRoom/BShareWithdrawModal'
+import BShareClaimReward from './BoardRoom/BShareClaimRewardModal'
+
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -371,8 +371,8 @@ const Dashboard = () => {
       {/* ///--------BOMB-FORM------Section----// */}
       <BombForm />
       {/* ///--------BOND------Section----// */}
-      <Bond />
-     
+      <BBond />
+
     </Page>
   );
 };

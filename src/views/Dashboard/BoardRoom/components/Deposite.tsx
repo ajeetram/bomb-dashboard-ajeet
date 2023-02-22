@@ -2,19 +2,19 @@ import React, {useMemo} from 'react';
 import styled from 'styled-components';
 
 import {Box, Button, Card, CardContent} from '@material-ui/core';
-import CardIcon from '../../../components/CardIcon';
-import {AddIcon} from '../../../components/icons';
-import IconButton from '../../../components/IconButton';
-import Label from '../../../components/Label';
-import Value from '../../../components/Value';
+import CardIcon from '../../../../components/CardIcon';
+import {AddIcon} from '../../../../components/icons';
+import IconButton from '../../../../components/IconButton';
+import Label from '../../../../components/Label';
+import Value from '../../../../components/Value';
 
-import useApprove, {ApprovalState} from '../../../hooks/useApprove';
-import useModal from '../../../hooks/useModal';
-import useTokenBalance from '../../../hooks/useTokenBalance';
+import useApprove, {ApprovalState} from '../../../../hooks/useApprove';
+import useModal from '../../../../hooks/useModal';
+import useTokenBalance from '../../../../hooks/useTokenBalance';
 import DepositModal from './DepositModal';
-import useBombFinance from '../../../hooks/useBombFinance';
-import TokenSymbol from '../../../components/TokenSymbol';
-import useStakeToBoardroom from '../../../hooks/useStakeToBoardroom';
+import useBombFinance from '../../../../hooks/useBombFinance';
+import TokenSymbol from '../../../../components/TokenSymbol';
+import useStakeToBoardroom from '../../../../hooks/useStakeToBoardroom';
 
 
 const Deposit: React.FC = () => {

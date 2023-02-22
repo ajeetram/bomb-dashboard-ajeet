@@ -57,7 +57,7 @@ const Farm = () => {
                     .filter((bank) => bank.sectionInUI === 3)
                     .map((bank) => (
                       <React.Fragment key={bank.name}>
-                        <FarmCard bank={bank} />
+                      <FarmCard bank={bank} />
                       </React.Fragment>
                     ))}
                 </Grid>
@@ -99,7 +99,7 @@ const Farm = () => {
                     .filter((bank) => bank.sectionInUI === 1)
                     .map((bank) => (
                       <React.Fragment key={bank.name}>
-                        <FarmCard bank={bank} />
+                      <FarmCard bank={bank} />
                       </React.Fragment>
                     ))}
                 </Grid>

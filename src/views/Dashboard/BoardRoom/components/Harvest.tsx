@@ -3,17 +3,17 @@ import styled from 'styled-components';
 
 import {Box, Button, Card, CardContent, Typography} from '@material-ui/core';
 
-import TokenSymbol from '../../../components/TokenSymbol';
-import Label from '../../../components/Label';
-import Value from '../../../components/Value';
-import CardIcon from '../../../components/CardIcon';
-import useClaimRewardTimerBoardroom from '../../../hooks/boardroom/useClaimRewardTimerBoardroom';
-import useClaimRewardCheck from '../../../hooks/boardroom/useClaimRewardCheck';
+import TokenSymbol from '../../../../components/TokenSymbol';
+import Label from '../../../../components/Label';
+import Value from '../../../../components/Value';
+import CardIcon from '../../../../components/CardIcon';
+import useClaimRewardTimerBoardroom from '../../../../hooks/boardroom/useClaimRewardTimerBoardroom';
+import useClaimRewardCheck from '../../../../hooks/boardroom/useClaimRewardCheck';
 import ProgressCountdown from './ProgressCountdown';
-import useHarvestFromBoardroom from '../../../hooks/useHarvestFromBoardroom';
-import useEarningsOnBoardroom from '../../../hooks/useEarningsOnBoardroom';
-import useBombStats from '../../../hooks/useBombStats';
-import {getDisplayBalance} from '../../../utils/formatBalance';
+import useHarvestFromBoardroom from '../../../../hooks/useHarvestFromBoardroom';
+import useEarningsOnBoardroom from '../../../../hooks/useEarningsOnBoardroom';
+import useBombStats from '../../../../hooks/useBombStats';
+import {getDisplayBalance} from '../../../../utils/formatBalance';
 
 const Harvest: React.FC = () => {
   const bombStats = useBombStats();

@@ -8,9 +8,9 @@ import {makeStyles} from '@material-ui/core/styles';
 
 import {Box, Button, Card, CardContent, Typography, Grid} from '@material-ui/core';
 
-import PageHeader from '../../components/PageHeader';
-import Spacer from '../../components/Spacer';
-import UnlockWallet from '../../components/UnlockWallet';
+import PageHeader from '../../BoardRoom/components/PageHeader';
+import Spacer from '../../BoardRoom/components/Spacer';
+import UnlockWallet from '../../BoardRoom/components/UnlockWallet';
 import Harvest from './components/Harvest';
 import Stake from './components/Stake';
 import useBank from '../../hooks/useBank';
@@ -38,7 +38,7 @@ const Bank: React.FC = () => {
 
   const {account} = useWallet();
   const { onRedeem } = useRedeem(bank);
-  
+
 
    let statsOnPool = useStatsForPool(bank);
   // console.log(statsOnPool);
@@ -74,7 +74,7 @@ const Bank: React.FC = () => {
       />
          <Box mt={5}>
           {(vaultUrl) ? (
-        <Grid container justify-content="center" spacing={3} style={{ marginBottom: '30px' }}>
+        <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>
         <Alert variant="filled" severity="info">
             <h3>Our autocompounding vaults are live!</h3><br />
             We support zapping tokens, and auto-compound every 2 hours!<br />
