@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import UpArrowImage from '../../../../assets/img/arrowUpCircle.png';
+import Bshare from '../../../../assets/img/bshares.png';
 import BOMBBTCBClaimReward from './Components/BNBBSHAREClaimReward';
 
 const Modal = () => {
@@ -8,7 +8,7 @@ const Modal = () => {
     <>
       <button className="flex p-1 text-4 border-white border rounded-3xl" onClick={() => setShowModal(true)}>
         <div className="mr-6 ml-1"> Claim</div>
-        <img className="h-[20px] w-[20px]" src={UpArrowImage} alt="Uparrow" />
+        <img className="h-[20px] w-[20px]" src={Bshare} alt="Uparrow" />
       </button>
       {showModal ? (
         <>

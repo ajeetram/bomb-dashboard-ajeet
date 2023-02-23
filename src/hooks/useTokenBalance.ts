@@ -10,8 +10,8 @@ const useTokenBalance = (token: ERC20) => {
   const isUnlocked = bombFinance?.isUnlocked;
 
   const fetchBalance = useCallback(async () => {
-    setBalance(await token.balanceOf(bombFinance.myAccount));
-  }, [token, bombFinance.myAccount]);
+    setBalance(await token.balanceOf(bombFinance?.myAccount));
+  }, [token, bombFinance?.myAccount]);
 
   useEffect(() => {
     if (isUnlocked) {

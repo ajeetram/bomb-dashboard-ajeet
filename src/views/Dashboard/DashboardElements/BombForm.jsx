@@ -30,8 +30,9 @@ const BOMBBTCBDepositTokenName = 'BOMB-BTCB-LP';
 
 const Component3 = () => {
   const bombFinance = useBombFinance();
+  
   const BOMBBTCBstakedBalance = useStakedBalance(BOMBBTCBContract, BOMBBTCBPoolId);
-  const BOMBBTCBstakedTokenPriceInDollars = useStakedTokenPriceInDollars(BOMBBTCBDepositTokenName, bombFinance.BBOMB_BTCB);
+  const BOMBBTCBstakedTokenPriceInDollars = useStakedTokenPriceInDollars(BOMBBTCBDepositTokenName, bombFinance?.BBOMB_BTCB);
   const BOMBBTCBStaketokenPriceInDollars = useMemo(
     () => (BOMBBTCBstakedTokenPriceInDollars ? BOMBBTCBstakedTokenPriceInDollars : null),
     [BOMBBTCBstakedTokenPriceInDollars],
@@ -49,7 +50,7 @@ const Component3 = () => {
   const BOMBBTCBearnedInDollars = (Number(BOMBBTCBtokenPriceInDollars) * Number(getDisplayBalance(BOMBBTCBearnings))).toFixed(2);
 
   const BNBBSHAREstakedBalance = useStakedBalance(BNBBSHAREContract, BNBBSHAREPoolId);
-  const BNBBSHAREstakedTokenPriceInDollars = useStakedTokenPriceInDollars(BNBBSHAREDepositTokenName, bombFinance.BNB);
+  const BNBBSHAREstakedTokenPriceInDollars = useStakedTokenPriceInDollars(BNBBSHAREDepositTokenName, bombFinance?.BNB);
   const BNBBSHAREStaketokenPriceInDollars = useMemo(
     () => (BNBBSHAREstakedTokenPriceInDollars ? BNBBSHAREstakedTokenPriceInDollars : null),
     [BNBBSHAREstakedTokenPriceInDollars],
