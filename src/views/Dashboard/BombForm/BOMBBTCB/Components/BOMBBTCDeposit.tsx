@@ -1,13 +1,12 @@
 import React, { useMemo, useContext } from 'react';
 import styled from 'styled-components';
 
-import { Button, Card, CardContent, Typography } from '@material-ui/core';
+import { Button, Card, CardContent} from '@material-ui/core';
 import CardIcon from '../../../../../components/CardIcon';
 import { AddIcon } from '../../../../../components/icons';
 
 import IconButton from '../../../../../components/IconButton';
 import Label from '../../../../../components/Label';
-import Value from '../../../../../components/Value';
 import { ThemeContext } from 'styled-components';
 
 import useApprove, { ApprovalState } from '../../../../../hooks/useApprove';
@@ -23,27 +22,15 @@ import useBombFinance from '../../../../../hooks/useBombFinance';
 const address = '0x1083926054069AaD75d7238E9B809b0eF9d94e5B';
 
 //----BOMB-BTCB-LP---DATA----//
-const name= 'Earn BSHARE by BOMB-BTCB LP';
-const poolId= 1;
-const contract= 'BombBtcbLPBShareRewardPool';
 const depositTokenName= 'BOMB-BTCB-LP';
-const earnTokenName= 'BSHARE';
-const finished= false;
+
 
 const Stake: React.FC = () => {
   const closedForStaking = false;
   const bombFinance = useBombFinance();
   const [approveStatus, approve] = useApprove(bombFinance.BBOMB_BTCB, address);
   console.log('Bank Address :', bombFinance.BBOMB_BTCB);
-  const { color: themeColor } = useContext(ThemeContext);
   const tokenBalance = useTokenBalance(bombFinance.BBOMB_BTCB);
-  const stakedBalance = useStakedBalance(contract, poolId);
-  const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(depositTokenName, bombFinance.BNB);
-  const tokenPriceInDollars = useMemo(
-    () => (stakedTokenPriceInDollars ? stakedTokenPriceInDollars : null),
-    [stakedTokenPriceInDollars],
-  );
-  const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(stakedBalance, 18))).toFixed(2);
   const { onStake } = useStake();
   const [onPresentDeposit, onDismissDeposit] = useModal(
     <DepositModal

@@ -28,7 +28,8 @@ const BOMBBTCBContract = 'BombBtcbLPBShareRewardPool';
 const BOMBBTCBearnTokenName = 'BSHARE';
 const BOMBBTCBDepositTokenName = 'BOMB-BTCB-LP';
 
-const Component3 = () => {
+const BombForm = () => {
+  
   const bombFinance = useBombFinance();
   
   const BOMBBTCBstakedBalance = useStakedBalance(BOMBBTCBContract, BOMBBTCBPoolId);
@@ -84,7 +85,7 @@ const Component3 = () => {
           <div className="mr-auto">
             <h6 className="font-bold text-2xl">BOMB-BTCB</h6>
           </div>
-          <div className="mt-auto text-[16px]"> TVL : $1,008,430</div>
+          <div className="mt-auto text-[16px]"> TVL : $101575.24</div>
         </div>
 
         <hr className="border-[#C3C5CB] bg-opacity-50 my-2" />
@@ -143,7 +144,7 @@ const Component3 = () => {
           <div className="mr-auto">
             <h6 className="font-bold text-2xl">Bshare-BNB</h6>
           </div>
-          <div className="mt-auto text-[16px]"> TVL : $1,008,430</div>
+          <div className="mt-auto text-[16px]"> TVL : $38848.06</div>
         </div>
 
         <hr className="border-[#C3C5CB] bg-opacity-50 my-2" />
@@ -193,4 +194,4 @@ const Component3 = () => {
   );
 };
 
-export default Component3;
+export default BombForm;

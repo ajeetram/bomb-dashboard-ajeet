@@ -13,11 +13,8 @@ import useBondStats from '../../hooks/useBondStats';
 import usebShareStats from '../../hooks/usebShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import { roundAndFormatNumber } from '../../0x';
-import MetamaskFox from '../../assets/img/metamask-fox.svg';
-import { Box, Button, Card, CardContent, Grid, Paper } from '@material-ui/core';
 import ZapModal from '../Bank/components/ZapModal';
 import { makeStyles } from '@material-ui/core/styles';
-import useBombFinance from '../../hooks/useBombFinance';
 import { Helmet } from 'react-helmet';
 import BshareImage from '../../assets/img/bshares.png';
 import BbondImage from '../../assets/img/bbond.png';
@@ -29,16 +26,13 @@ import useEarningsOnBoardroom from '../../../src/hooks/useEarningsOnBoardroom';
 import { getDisplayBalance } from '../../../src/utils/formatBalance';
 import useStakedBalanceOnBoardroom from '../../hooks/useStakedBalanceOnBoardroom';
 import useCurrentEpoch from '../../hooks/useCurrentEpoch';
-import useFetchBoardroomAPR from '../../hooks/useFetchBoardroomAPR';
 import BombImage from '../../assets/img/bomb.png';
-import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 import useTreasuryAllocationTimes from '../../hooks/useTreasuryAllocationTimes';
 import useTotalStakedOnBoardroom from '../../hooks/useTotalStakedOnBoardroom';
 import ProgressCountdown from '../../views/Boardroom/components/ProgressCountdown';
-import BShareDeposit from './BoardRoom/BShareDepositeModal'
-import BShareWithdraw from './BoardRoom/BShareWithdrawModal'
-import BShareClaimReward from './BoardRoom/BShareClaimRewardModal'
-
+import BShareDeposit from './BoardRoom/BShareDepositeModal';
+import BShareWithdraw from './BoardRoom/BShareWithdrawModal';
+import BShareClaimReward from './BoardRoom/BShareClaimRewardModal';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -57,25 +51,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Dashboard = () => {
-  const [showDeposite, setShowDeposite] = useState(false);
-  const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const bombFtmLpStats = useLpStatsBTC('BOMB-BTCB-LP');
-  const bShareFtmLpStats = useLpStats('BSHARE-BNB-LP');
   const bombStats = useBombStats();
   const bShareStats = usebShareStats();
   const tBondStats = useBondStats();
-  const bombFinance = useBombFinance();
 
   //------BoardRoom Section-----//
   const earnings = useEarningsOnBoardroom();
-
   const stakedBalance = useStakedBalanceOnBoardroom();
   const currentEpoch = useCurrentEpoch();
-  const cashStat = useCashPriceInEstimatedTWAP();
   const totalStaked = useTotalStakedOnBoardroom();
-  const boardroomAPR = useFetchBoardroomAPR();
- 
 
   const tokenPriceInDollars = useMemo(
     () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
@@ -89,12 +74,7 @@ const Dashboard = () => {
     //  'https://pancakeswap.finance/swap?inputCurrency=0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c&outputCurrency=' +
     'https://app.bogged.finance/bsc/swap?tokenIn=0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c&tokenOut=0x522348779DCb2911539e76A1042aA922F9C47Ee3';
   //https://pancakeswap.finance/swap?outputCurrency=0x531780FAcE85306877D7e1F05d713D1B50a37F7A';
-  const buyBShareAddress = //'https://app.1inch.io/#/56/swap/BNB/BSHARE';
-    'https://app.bogged.finance/bsc/swap?tokenIn=BNB&tokenOut=0x531780FAcE85306877D7e1F05d713D1B50a37F7A';
-  const buyBusmAddress =
-    'https://app.bogged.finance/bsc/swap?tokenIn=0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56&tokenOut=0x6216B17f696B14701E17BCB24Ec14430261Be94A';
-  const bombLPStats = useMemo(() => (bombFtmLpStats ? bombFtmLpStats : null), [bombFtmLpStats]);
-  const bshareLPStats = useMemo(() => (bShareFtmLpStats ? bShareFtmLpStats : null), [bShareFtmLpStats]);
+
   const bombPriceInDollars = useMemo(
     () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
     [bombStats],
@@ -129,7 +109,7 @@ const Dashboard = () => {
   const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
 
   const bombLpZap = useZap({ depositTokenName: 'BOMB-BTCB-LP' });
-  const bshareLpZap = useZap({ depositTokenName: 'BSHARE-BNB-LP' });
+
 
   const [onPresentBombZap, onDissmissBombZap] = useModal(
     <ZapModal
@@ -143,37 +123,8 @@ const Dashboard = () => {
     />,
   );
 
-  const [onPresentBshareZap, onDissmissBshareZap] = useModal(
-    <ZapModal
-      decimals={18}
-      onConfirm={(zappingToken, tokenName, amount) => {
-        if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        bshareLpZap.onZap(zappingToken, tokenName, amount);
-        onDissmissBshareZap();
-      }}
-      tokenName={'BSHARE-BNB-LP'}
-    />,
-  );
+  
 
-  const [modal, setModal] = useState(false);
-  const [videoLoading, setVideoLoading] = useState(true);
-
-  const openModal = () => {
-    setModal(!modal);
-  };
-
-  const spinner = () => {
-    setVideoLoading(!videoLoading);
-  };
-
-  const deposite = ()=>
-  {
-    if(!showDeposite)
-    {
-      setShowDeposite(true);
-    }  
-
-  }
 
   return (
     <Page>
@@ -346,16 +297,16 @@ const Dashboard = () => {
                 {`≈ $${earnedInDollars}`}
               </div>
 
-            {/* //-----Deposit-----Withdraw----Claim Rewards Functions-----// */}
+              {/* //-----Deposit-----Withdraw----Claim Rewards Functions-----// */}
               <div className="grid grid-cols-2 gap-y-2">
-                <div className="col-span-1 place-self-center">  
-                 <BShareDeposit />
+                <div className="col-span-1 place-self-center">
+                  <BShareDeposit />
                 </div>
                 <div className="col-span-1 place-self-center">
                   <BShareWithdraw />
                 </div>
                 <div className="col-span-2 place-self-center">
-                <BShareClaimReward />
+                  <BShareClaimReward />
                 </div>
               </div>
             </div>
@@ -367,12 +318,11 @@ const Dashboard = () => {
           Latest News
         </div>
       </div>
-      
+
       {/* ///--------BOMB-FORM------Section----// */}
       <BombForm />
       {/* ///--------BOND------Section----// */}
       <BBond />
-
     </Page>
   );
 };

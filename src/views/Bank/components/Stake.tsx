@@ -37,12 +37,10 @@ interface StakeProps {
 const Stake: React.FC<StakeProps> = ({ bank }) => {
   console.log({bank})
   const [approveStatus, approve] = useApprove(bank.depositToken, bank.address);
-  console.log("Deposit Token :",bank.depositToken);
   const {color: themeColor} = useContext(ThemeContext);
   const tokenBalance = useTokenBalance(bank.depositToken);
   const stakedBalance = useStakedBalance(bank.contract, bank.poolId);
   const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank.depositTokenName, bank.depositToken);
-  console.log("Deposit TokenName :",bank.depositTokenName);
   const tokenPriceInDollars = useMemo(
     () => (stakedTokenPriceInDollars ? stakedTokenPriceInDollars : null),
     [stakedTokenPriceInDollars],
