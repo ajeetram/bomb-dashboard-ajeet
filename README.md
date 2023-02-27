@@ -1,5 +1,9 @@
 # 🪦Welcome to the Bomb.money ecosystem🪦
 
+## Dashboard
+![image](https://user-images.githubusercontent.com/86039147/221518958-25b5610a-6832-4fd5-8ef4-15d3eb21620b.png)
+
+
 Thanks for taking the time to contribute!
 You can start by reading our [Contribution guidelines](CONTRIBUTING.md) first.
 
